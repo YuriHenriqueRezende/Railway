@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-#oi
+
 from pathlib import Path
 import os
 import environ
@@ -29,10 +29,16 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['railway-production-c759.up.railway.app']
+production_server = 'sge-senai.up.railway.app'
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost',
-                 'https://railway-production-c759.up.railway.app'
+ALLOWED_HOSTS = [
+    'sge-senai.up.railway.app',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost',
+    '127.0.0.1',
+    'https://' + production_server
 ]
 
 
@@ -58,7 +64,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -140,8 +146,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATIC_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-#a
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
