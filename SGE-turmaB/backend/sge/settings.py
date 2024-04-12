@@ -29,8 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://localhost',
-                 'https://railway-production-c759.up.railway.app']
+ALLOWED_HOSTS = ['railway-production-c759.up.railway.app']
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost',
                  'https://railway-production-c759.up.railway.app'
