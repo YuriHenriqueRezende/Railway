@@ -33,11 +33,11 @@ production_server = 'sge-senai.up.railway.app'
 
 ALLOWED_HOSTS = [
     'sge-senai.up.railway.app',
+    '127.0.0.1',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost',
-    '127.0.0.1',
     'https://' + production_server
 ]
 
