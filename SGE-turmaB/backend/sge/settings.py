@@ -29,10 +29,10 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-production_server = 'sge-senai-mange.up.railway.app'
+production_server = 'sge-senai.up.railway.app'
 
 ALLOWED_HOSTS = [
-    'sge-senai-mange.up.railway.app',
+    'sge-senai.up.railway.app',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
