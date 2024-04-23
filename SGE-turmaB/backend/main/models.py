@@ -275,3 +275,11 @@ class PlanStatus(models.Model):
 
     def __str__(self):
         return self.planFK.teacherFK.email
+
+class ChatBot(models.Model):
+    file = models.FileField(upload_to="/chatbot")
+    creaateDate = models.DateTimeField(auto_now_add=True)
+    scheduthedate = models.DateTimeField()
+
+    def __str__(self):
+        return 'chatbot'

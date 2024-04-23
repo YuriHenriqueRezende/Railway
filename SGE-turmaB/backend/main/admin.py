@@ -5,6 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 class AdminCustomUser(UserAdmin):
     model = CustomUser
     list_display = ['id','email','registrationNumber','is_active']
+    list_display_links = ('id','email','registrationNumber','is_active',)
     fieldsets = (
         (None, {'fields':('email','password')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'groups', 'user_permissions',)}),
@@ -185,3 +186,12 @@ class AdminPlanStatus(admin.ModelAdmin):
     list_per_page = 10
 
 admin.site.register(PlanStatus,AdminPlanStatus)
+
+class AdminChatBot(admin.ModelAdmin):
+    list_display = ('id')
+    list_display_links = ()
+    search_fields = ()
+    
+    list_per_page = 10
+
+admin.site.register()

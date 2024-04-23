@@ -8,10 +8,10 @@ class CustomManager(BaseUserManager):
         if not email:
             raise  ValueError("Invalid e-mail!")
         
-        regNumber = registrationNumber if registrationNumber else random.randint(1,1000000)
+        regNumber = registrationNumber if registrationNumber else random.randint(1,100000)
 
         email = self.normalize_email(email)
-
+   
         user = self.model(
             email=email,            
             registrationNumber=regNumber,
@@ -22,11 +22,10 @@ class CustomManager(BaseUserManager):
         return user
         
     def create_superuser(self, email, password=None, registrationNumber=None, **extra_fields):
+        #se é criação de super user, então seta estes atributos automaticamente:
         extra_fields.setdefault('is_staff',True)
         extra_fields.setdefault('is_superuser',True)
         
         return self.create_user(email, password, registrationNumber, **extra_fields)
-    
-
             
         
