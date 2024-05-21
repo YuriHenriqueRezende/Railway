@@ -23,9 +23,10 @@ class fotoslivro(models.Model):
     
 class Usuario(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField("endereço de email", unique=True)
+    nome = models.CharField(max_length=50, null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    cpf = models.CharField(max_length=20)
+    cpf = models.CharField(max_length=20, null=True, blank=True)
     biografia = models.CharField(max_length=200, null=True, blank=True)
     foto = models.URLField(max_length=200, verbose_name="Image URL", null=True, blank=True)
 
@@ -61,7 +62,7 @@ class livro(models.Model):
         return self.titulo
 
 class emprestimo(models.Model):
-    livroFK = models.ForeignKey(livro, on_delete=models.CASCADE)
+    livroFK = models.ManyToManyField(livro)
     usuarioFK = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='emprestimos')
     data_inicio = models.DateField()
     data_fim = models.DateField()
@@ -69,3 +70,5 @@ class emprestimo(models.Model):
     def __str__(self):
         return f'{self.usuarioFK} - {self.livroFK}'
     
+    def livros(self):
+        return ",".join([str(p) for p in self.livro.all()])

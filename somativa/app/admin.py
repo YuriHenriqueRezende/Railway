@@ -6,20 +6,20 @@ from django.contrib.auth.admin import UserAdmin
 # Register your models here.
 class CustomUserAdmin(UserAdmin):
     model = Usuario
-    list_display = ('email', 'is_staff', 'is_active', 'cpf')
+    list_display = ('email','nome', 'is_staff', 'is_active', 'cpf')
     list_filter = ('is_staff', 'is_active',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('cpf', 'biografia', 'foto')}),
+        ('Personal info', {'fields': ('cpf','nome', 'biografia', 'foto')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'groups', 'user_permissions')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'cpf', 'biografia', 'foto', 'is_staff', 'is_active')}
+            'fields': ('email', 'password1', 'password2','nome', 'cpf', 'biografia', 'foto', 'is_staff', 'is_active')}
         ),
     )
-    search_fields = ('email', 'cpf')
+    search_fields = ('email','nome', 'cpf')
     ordering = ('email',)
     filter_horizontal = ('groups', 'user_permissions',)
 
@@ -55,9 +55,9 @@ admin.site.register(livro, AdminLivro)
 
 class AdminEmprestimo(admin.ModelAdmin):
     model = emprestimo
-    list_display = ['id', 'livroFK', 'usuarioFK', 'data_inicio', 'data_fim']
-    list_display_links = ('id', 'livroFK', 'usuarioFK', 'data_inicio', 'data_fim')
-    search_fields = ('livroFK',)
+    list_display = ['id', 'livros', 'usuarioFK', 'data_inicio', 'data_fim']
+    list_display_links = ('id', 'livros', 'usuarioFK', 'data_inicio', 'data_fim')
+    search_fields = ('livros',)
     list_per_page = 10
 
 admin.site.register(emprestimo, AdminEmprestimo)
