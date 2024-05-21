@@ -54,7 +54,7 @@ class livro(models.Model):
     autor = models.ForeignKey(Usuario, related_name='fotosusuariosFKFK', on_delete=models.CASCADE)
     publicacao = models.IntegerField()
     categoriaFK = models.ForeignKey(categorias, related_name='categoriasFKFK', on_delete=models.CASCADE)
-    status = models.CharField(max_length=100, choices=FORMATOS, default="P")
+    status = models.CharField(max_length=100, choices=STATUS, default="P")
     preco = models.DecimalField(max_digits=10,decimal_places=2)
 
     def __str__(self):

@@ -5,11 +5,23 @@ from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
 class CustomUserAdmin(UserAdmin):
-    model=Usuario
-    list_display = ['id', 'email','biografia','foto']
-    list_display_links = ('id', 'email','biografia','foto')
-    ordering = ['email']
-    search_fields = ['nome',]
+    model = Usuario
+    list_display = ('email', 'is_staff', 'is_active', 'cpf')
+    list_filter = ('is_staff', 'is_active',)
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        ('Personal info', {'fields': ('cpf', 'biografia', 'foto')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'groups', 'user_permissions')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2', 'cpf', 'biografia', 'foto', 'is_staff', 'is_active')}
+        ),
+    )
+    search_fields = ('email', 'cpf')
+    ordering = ('email',)
+    filter_horizontal = ('groups', 'user_permissions',)
 
 admin.site.register(Usuario, CustomUserAdmin)
 
