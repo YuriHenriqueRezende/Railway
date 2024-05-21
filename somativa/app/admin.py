@@ -55,9 +55,9 @@ admin.site.register(livro, AdminLivro)
 
 class AdminEmprestimo(admin.ModelAdmin):
     model = emprestimo
-    list_display = ['id', 'livros', 'usuarioFK', 'data_inicio', 'data_fim']
-    list_display_links = ('id', 'livros', 'usuarioFK', 'data_inicio', 'data_fim')
-    search_fields = ('livros',)
+    list_display = ['id', 'usuarioFK', 'data_inicio', 'data_fim']
+    list_display_links = ('id', 'usuarioFK', 'data_inicio', 'data_fim')
+    search_fields = ('usuarioFK',)
     list_per_page = 10
 
 admin.site.register(emprestimo, AdminEmprestimo)

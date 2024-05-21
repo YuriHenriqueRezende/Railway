@@ -68,7 +68,7 @@ class emprestimo(models.Model):
     data_fim = models.DateField()
 
     def __str__(self):
-        return f'{self.usuarioFK} - {self.livroFK}'
+        return str(self.usuarioFK)
     
     def livros(self):
         return ",".join([str(p) for p in self.livro.all()])
