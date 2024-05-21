@@ -3,9 +3,15 @@ from django.db import models
 # Create your models here.
 CARGOS
 STATUS
+FORMATOS
 
 class fotos(models.Model):
-    link =
+    nome = models.CharField(max_length=50)
+    link = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.nome
+
 
 class usuariosCustomizado(models.Model):
     nome =
@@ -22,7 +28,7 @@ class livro(models.Model):
     formato =
     numero_edicao =
     autor =
-    ano_publicacao = 
+    publicacao = 
     categoria =
     status =
     preco =
