@@ -12,7 +12,7 @@ class Gerenciador(BaseUserManager):
         user.save(using=self.db)
         return user
     
-    def create_superuser(self, email, password=None, cpf='4881184545', **extra_fields):
+    def create_superuser(self, email, password=None, cpf=None, **extra_fields):
         extra_fields.setdefault('is_staff',True)
         extra_fields.setdefault('is_superuser',True)
 

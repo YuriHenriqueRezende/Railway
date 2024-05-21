@@ -1,6 +1,5 @@
 from django.db import models
-from .user import Gerenciador  # type: ignore
-from django.forms import URLField
+from .user import Gerenciador 
 
 # Create your models here.
 CARGOS = [
@@ -24,21 +23,20 @@ FORMATOS = [
 
 class fotoslivro(models.Model):
     nome = models.CharField(max_length=50)
-    link = URLField(max_length=200, verbose_name="Image URL")
+    link = models.URLField(max_length=200, verbose_name="Image URL")
 
     def __str__(self):
         return self.nome
 
 
 class usuariosCustomizado(models.Model):
-    nome = models.CharField(max_length=50)
     email = models.EmailField("endereço de email", unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     cpf = models.CharField(max_length=20)
     biografia = models.CharField(max_length=200)
     cargo = models.CharField(max_length=100, choices=CARGOS, default="U")
-    foto = URLField(max_length=200, verbose_name="Image URL")
+    foto = models.URLField(max_length=200, verbose_name="Image URL")
 
     objects = Gerenciador()
     REQUIRED_FIELDS = []
@@ -61,11 +59,10 @@ class livro(models.Model):
     titulo = models.CharField(max_length=50)
     imagemfk = models.ForeignKey(fotoslivro, related_name='fotosusuariosFKFK', on_delete=models.CASCADE)
     descricao = models.CharField(max_length=100)
-    usuarioFK = models.ForeignKey(usuariosCustomizado, related_name='fotosusuariosFKFK', on_delete=models.CASCADE)
     numero_pagina = models.IntegerField()
     formato = models.CharField(max_length=100, choices=FORMATOS)
     numero_edicao = models.IntegerField()
-    autor = models.CharField(max_length=50)
+    autor = models.ForeignKey(usuariosCustomizado, related_name='fotosusuariosFKFK', on_delete=models.CASCADE)
     publicacao = models.IntegerField()
     categoriaFK = models.ForeignKey(categorias, related_name='categoriasFKFK', on_delete=models.CASCADE)
     status = models.CharField(max_length=100, choices=FORMATOS, default="P")
@@ -76,10 +73,10 @@ class livro(models.Model):
 
 
 class emprestimo(models.Model):
-    livroFK = models.ForeignKey(livro, related_name="livroFKFK", on_delete=models.CASCADE)
-    data_inicio = createdDate = models.DateField(auto_now_add=True)
+    livroFK = models.ForeignKey(livro, on_delete=models.CASCADE)
+    usuarioFK = models.ForeignKey(usuariosCustomizado, on_delete=models.CASCADE, related_name='emprestimos')
+    data_inicio = models.DateField()
     data_fim = models.DateField()
 
     def __str__(self):
-        return self.livroFK
-
+        return f'{self.usuarioFK} - {self.livroFK}'
