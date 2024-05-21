@@ -4,14 +4,14 @@ from django.contrib.auth.admin import UserAdmin
 
 
 # Register your models here.
-class AdminUsuarioCustomizado(admin.ModelAdmin):
-    model = usuariosCustomizado
-    list_display = ['id',  'email', 'cpf', 'biografia', 'cargo', 'foto']
-    list_display_links = ('id', 'email', 'cpf', 'biografia', 'cargo', 'foto')
+class CustomUserAdmin(UserAdmin):
+    model=Usuario
+    list_display = ['id', 'email','biografia','foto']
+    list_display_links = ('id', 'email','biografia','foto')
     ordering = ['email']
     search_fields = ['nome',]
 
-admin.site.register(usuariosCustomizado, AdminUsuarioCustomizado)
+admin.site.register(Usuario, CustomUserAdmin)
 
 class AdminFoto(admin.ModelAdmin):
     model = fotoslivro
