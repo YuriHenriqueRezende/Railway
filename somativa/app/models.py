@@ -33,6 +33,14 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+class fotoslivro(models.Model):
+    nome = models.CharField(max_length=50, null=True, blank=True)
+    link = models.URLField(max_length=200, verbose_name="Image URL")
+
+    def __str__(self):
+        return self.nome
+    
+
 class categorias(models.Model):
     nome = models.CharField(max_length=50)
 
@@ -50,16 +58,13 @@ class livro(models.Model):
     categoriaFK = models.ForeignKey(categorias, related_name='categoriasFKFK', on_delete=models.CASCADE)
     status = models.CharField(max_length=100, choices=STATUS, default="P")
     preco = models.DecimalField(max_digits=10,decimal_places=2)
+    fotosFK = models.ManyToManyField(fotoslivro)
 
     def __str__(self):
         return self.titulo
-    
-class fotoslivro(models.Model):
-    livroFK = models.ForeignKey(livro, related_name='livroFKFK', on_delete=models.CASCADE, null=True, blank=True)
-    link = models.URLField(max_length=200, verbose_name="Image URL")
 
-    def __str__(self):
-        return str(self.livroFK)
+    def fotos(self):
+        return ",".join([str(p) for p in self.fotosFK.all()])
     
 class emprestimo(models.Model):
     livroFK = models.ManyToManyField(livro)
