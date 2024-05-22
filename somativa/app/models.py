@@ -14,12 +14,6 @@ FORMATOS = [
         ("F","FISICO")
 ]
 
-class fotoslivro(models.Model):
-    nome = models.CharField(max_length=50)
-    link = models.URLField(max_length=200, verbose_name="Image URL")
-
-    def __str__(self):
-        return self.nome
     
 class Usuario(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField("endereço de email", unique=True)
@@ -47,7 +41,6 @@ class categorias(models.Model):
 
 class livro(models.Model):
     titulo = models.CharField(max_length=50)
-    imagemfk = models.ForeignKey(fotoslivro, related_name='fotosusuariosFKFK', on_delete=models.CASCADE)
     descricao = models.CharField(max_length=100)
     numero_pagina = models.IntegerField()
     formato = models.CharField(max_length=100, choices=FORMATOS)
@@ -60,7 +53,14 @@ class livro(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+class fotoslivro(models.Model):
+    livroFK = models.ForeignKey(livro, related_name='livroFKFK', on_delete=models.CASCADE, null=True, blank=True)
+    link = models.URLField(max_length=200, verbose_name="Image URL")
 
+    def __str__(self):
+        return str(self.livroFK)
+    
 class emprestimo(models.Model):
     livroFK = models.ManyToManyField(livro)
     usuarioFK = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='emprestimos')

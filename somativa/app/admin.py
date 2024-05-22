@@ -25,16 +25,6 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(Usuario, CustomUserAdmin)
 
-class AdminFoto(admin.ModelAdmin):
-    model = fotoslivro
-    list_display = ['id', 'nome','link']
-    list_display_links = ('id', 'nome','link')
-    search_fields = ('nome',)
-    list_per_page = 10
-
-admin.site.register(fotoslivro, AdminFoto)
-
-
 class AdminCategorias(admin.ModelAdmin):
     model = categorias
     list_display = ['id', 'nome']
@@ -46,12 +36,21 @@ admin.site.register(categorias, AdminCategorias)
 
 class AdminLivro(admin.ModelAdmin):
     model = livro
-    list_display = ['id', 'titulo', 'imagemfk', 'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco']
-    list_display_links = ('id', 'titulo', 'imagemfk', 'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco')
+    list_display = ['id', 'titulo',  'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco']
+    list_display_links = ('id', 'titulo', 'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco')
     search_fields = ('titulo',)
     list_per_page = 10
 
 admin.site.register(livro, AdminLivro)
+
+class AdminFoto(admin.ModelAdmin):
+    model = fotoslivro
+    list_display = ['id', 'livroFK','link']
+    list_display_links = ('id', 'livroFK','link')
+    search_fields = ('livroFK',)
+    list_per_page = 10
+
+admin.site.register(fotoslivro, AdminFoto)
 
 class AdminEmprestimo(admin.ModelAdmin):
     model = emprestimo
