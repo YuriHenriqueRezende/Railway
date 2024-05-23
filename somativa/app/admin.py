@@ -45,8 +45,8 @@ admin.site.register(categorias, AdminCategorias)
 
 class AdminLivro(admin.ModelAdmin):
     model = livro
-    list_display = ['id', 'titulo',  'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco','fotos']
-    list_display_links = ('id', 'titulo', 'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco','fotos')
+    list_display = ['id', 'titulo',  'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco','fotos','quantidade']
+    list_display_links = ('id', 'titulo', 'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco','fotos','quantidade')
     search_fields = ('titulo',)
     list_per_page = 10
 
