@@ -20,10 +20,10 @@ class categoriasSerializer(serializers.ModelSerializer):
         many = True
 
 class livroSerializer(serializers.ModelSerializer):
-    fotoslivro = serializers.SlugRelatedField(
+    fotosFK = serializers.SlugRelatedField(
         many=True,
         read_only=True,
-        slug_field='url'
+        slug_field='link'
     )
     class Meta:
         model = livro
