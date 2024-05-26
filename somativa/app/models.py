@@ -21,6 +21,13 @@ CARGOS = [
         ("U","USUARIO(A)"),
 ]
 
+BIBLIOTECA = [
+        ("D","DEVOLVIDO"),
+        ("A","ATRASADO"),
+        ("E","EMPRESTADO"),
+
+]
+
     
 class Usuario(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField("endereço de email", unique=True)
@@ -28,7 +35,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     cpf = models.CharField(max_length=20, null=True, blank=True)
-    biografia = models.CharField(max_length=200, null=True, blank=True)
+    biografia = models.TextField(null=True, blank=True)
     foto = models.URLField(max_length=200, verbose_name="Image URL", null=True, blank=True)
     cargo = models.CharField(max_length=100, choices=CARGOS, default="U")
 
@@ -57,7 +64,7 @@ class categorias(models.Model):
 
 class livro(models.Model):
     titulo = models.CharField(max_length=50)
-    descricao = models.CharField(max_length=100)
+    descricao = models.TextField()
     numero_pagina = models.IntegerField()
     formato = models.CharField(max_length=100, choices=FORMATOS)
     numero_edicao = models.IntegerField()
@@ -80,6 +87,7 @@ class emprestimo(models.Model):
     usuarioFK = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='emprestimos')
     data_inicio = models.DateField()
     data_fim = models.DateField()
+    status = models.CharField(max_length=100, choices=BIBLIOTECA, default="E")
 
     def __str__(self):
         return str(self.usuarioFK)

@@ -16,7 +16,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2','nome', 'cpf', 'biografia', 'foto', 'is_staff', 'is_active')}
+            'fields': ('email', 'password1', 'password2','nome', 'cpf', 'biografia', 'foto')}
         ),
     )
     search_fields = ('email','nome', 'cpf','cargo')
@@ -45,17 +45,22 @@ admin.site.register(categorias, AdminCategorias)
 
 class AdminLivro(admin.ModelAdmin):
     model = livro
-    list_display = ['id', 'titulo',  'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco','fotos','quantidade']
-    list_display_links = ('id', 'titulo', 'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco','fotos','quantidade')
+    list_display = ['id', 'titulo', 'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco', 'fotos', 'quantidade']
+    list_display_links = ('id', 'titulo', 'descricao', 'numero_pagina', 'formato', 'numero_edicao', 'autor', 'publicacao', 'categoriaFK', 'status', 'preco', 'fotos', 'quantidade')
     search_fields = ('titulo',)
     list_per_page = 10
+
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.is_superuser: 
+            return ['status', 'preco']
+        return []
 
 admin.site.register(livro, AdminLivro)
 
 class AdminEmprestimo(admin.ModelAdmin):
     model = emprestimo
-    list_display = ['id', 'usuarioFK', 'data_inicio', 'data_fim']
-    list_display_links = ('id', 'usuarioFK', 'data_inicio', 'data_fim')
+    list_display = ['id', 'usuarioFK', 'data_inicio', 'data_fim','status']
+    list_display_links = ('id', 'usuarioFK', 'data_inicio', 'data_fim','status')
     search_fields = ('usuarioFK',)
     list_per_page = 10
 
