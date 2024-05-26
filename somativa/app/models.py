@@ -14,6 +14,13 @@ FORMATOS = [
         ("F","FISICO")
 ]
 
+CARGOS = [
+        ("A","ADMIN"),
+        ("B","BIBLIOTECARIO(A)"),
+        ("AU","AUTOR(A)"),
+        ("U","USUARIO(A)"),
+]
+
     
 class Usuario(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField("endereço de email", unique=True)
@@ -23,6 +30,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     cpf = models.CharField(max_length=20, null=True, blank=True)
     biografia = models.CharField(max_length=200, null=True, blank=True)
     foto = models.URLField(max_length=200, verbose_name="Image URL", null=True, blank=True)
+    cargo = models.CharField(max_length=100, choices=CARGOS, default="U")
 
     objects = Gerenciador()
     REQUIRED_FIELDS = []
@@ -53,7 +61,7 @@ class livro(models.Model):
     numero_pagina = models.IntegerField()
     formato = models.CharField(max_length=100, choices=FORMATOS)
     numero_edicao = models.IntegerField()
-    autor = models.ForeignKey(Usuario, related_name='fotosusuariosFKFK', on_delete=models.CASCADE)
+    autor = models.ForeignKey(Usuario, related_name='usuariosFKFK', on_delete=models.CASCADE)
     publicacao = models.IntegerField()
     categoriaFK = models.ForeignKey(categorias, related_name='categoriasFKFK', on_delete=models.CASCADE)
     status = models.CharField(max_length=100, choices=STATUS, default="P")
