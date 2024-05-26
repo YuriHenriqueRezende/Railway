@@ -27,7 +27,6 @@ BIBLIOTECA = [
         ("E","EMPRESTADO"),
 
 ]
-
     
 class Usuario(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField("endereço de email", unique=True)
