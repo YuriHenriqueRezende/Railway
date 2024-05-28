@@ -10,8 +10,8 @@ STATUS = [
 ]
 
 FORMATOS = [
-        ("E","E-BOOK"),
-        ("F","FISICO")
+        ("E-BOOK","E-BOOK"),
+        ("FISICO","FISICO")
 ]
 
 CARGOS = [
