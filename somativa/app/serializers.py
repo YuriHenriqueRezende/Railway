@@ -31,11 +31,6 @@ class livroSerializer(serializers.ModelSerializer):
         many = True
 
 class emprestimoSerializer(serializers.ModelSerializer):
-    livroFK = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='titulo'
-    )
     class Meta:
         model = emprestimo
         fields = '__all__'
